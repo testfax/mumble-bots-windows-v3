@@ -8,13 +8,9 @@ You do NOT need to install Node.js, FFmpeg, Python, npm packages, or Visual Stud
 
 ## FIRST LAUNCH (Windows x64)
 
-Double-click Mumble-Bot-Controller.bat. It downloads portable Node.js 24.13.0 and Gyan.dev FFmpeg 9.0.1 full build when missing, then runs npm ci from the committed package-lock.json and starts the controller. An internet connection is required on first run. Existing runtime executables are never replaced.
+Double-click Mumble-Bot-Controller.bat. It downloads portable Node.js 24.13.0 and Gyan.dev FFmpeg 9.0.1 full build when missing, then runs npm ci from the committed package-lock.json and starts the controller. 
 
 The controller opens at http://127.0.0.1:8787. If installation fails, the BAT window remains open with the error.
-
-This package has not been tested on a Windows machine. The @discordjs/opus native module may require a compatible prebuilt binary or Windows build tools.
-
-Never commit config.json containing credentials or private tokens. Inspect it before publishing.
 
 ### Opus compatibility (updated 2026-11-01):
 
