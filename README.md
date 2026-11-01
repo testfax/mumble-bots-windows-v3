@@ -1,13 +1,30 @@
-MUMBLE BOT CONTROLLER - WINDOWS
+# MUMBLE BOT CONTROLLER - WINDOWS
 
-SETUP
+## SETUP
 
 This folder is designed to be portable.
 
 You do NOT need to install Node.js, FFmpeg, Python, npm packages, or Visual Studio separately.
 
+## FIRST LAUNCH (Windows x64)
 
-STARTING THE CONTROLLER
+Double-click Mumble-Bot-Controller.bat. It downloads portable Node.js 24.13.0 and Gyan.dev FFmpeg 9.0.1 full build when missing, then runs npm ci from the committed package-lock.json and starts the controller. An internet connection is required on first run. Existing runtime executables are never replaced.
+
+The controller opens at http://127.0.0.1:8787. If installation fails, the BAT window remains open with the error.
+
+This package has not been tested on a Windows machine. The @discordjs/opus native module may require a compatible prebuilt binary or Windows build tools.
+
+Never commit config.json containing credentials or private tokens. Inspect it before publishing.
+
+### Opus compatibility (updated 2026-11-01):
+
+Uses Node.js 22.14.0 (Windows x64, ABI 127) because @discordjs/opus 0.10.0
+publishes an official win32-x64 prebuilt binary for that ABI.
+Existing Node.js runtimes with other versions are preserved; Node 22 is
+downloaded into runtime\node-v22 when needed. Native Opus encode is verified.
+A prior failed npm ci will be retried, and version/lock changes invalidate the marker.
+
+## STARTING THE CONTROLLER
 
 1. Double-click:
 
@@ -19,29 +36,27 @@ STARTING THE CONTROLLER
 
 3. Wait for a Portable NodeJS to install, FFMpeg, and dependencies.
 
-URL
+## URL
 
 1. Enter the URL of the mumble server that you wish the bots to connect to
 2. Click Save
 
-ACCESS TOKEN
+## ACCESS TOKEN
 
 1. Paste your token into the Access Token field.
 2. Click Save Token.
 
-
-
-RUNNING BOTS
+## RUNNING BOTS
 
 In the browser controller:
 
-Bots
+**Bots**
     Number of bots to start.
 
-Talkers
+**Talkers**
     Number of those bots that continuously transmit the included test audio.
 
-Start delay (ms)
+**Start delay (ms)**
     Delay between starting each bot.
 
 Click:
@@ -50,8 +65,7 @@ Click:
 
 to start the requested bots.
 
-
-STOPPING BOTS
+## STOPPING BOTS
 
 Click:
 
@@ -59,22 +73,22 @@ Click:
 
 to disconnect all bots started by the controller.
 
-
-RUNNING STATUS
+## RUNNING STATUS
 
 The controller displays the currently running LoadBot processes.
 
 Example:
 
-    Running: 10
+```text
+Running: 10
 
-    LoadBot-001
-    LoadBot-002
-    LoadBot-003
-    ...
+LoadBot-001
+LoadBot-002
+LoadBot-003
+...
+```
 
-
-TALKING BOTS
+## TALKING BOTS
 
 Talking bots use:
 
@@ -84,8 +98,7 @@ through the bundled FFmpeg runtime.
 
 No external audio software is required.
 
-
-TOKEN SECURITY
+## TOKEN SECURITY
 
 Each token belongs to a specific subscriber/server configuration on the VPS.
 
@@ -99,41 +112,39 @@ from the token.
 
 If the administrator clears or revokes that token on the VPS, it will stop working.
 
+## IMPORTANT FILES
 
-IMPORTANT FILES
-
-Mumble-Bot-Controller.bat
+`Mumble-Bot-Controller.bat`
     Double-click this to start the controller.
 
-controller.js
+`controller.js`
     Localhost web controller.
 
-mumble-bots.ps1
+`mumble-bots.ps1`
     Windows bot launcher.
 
-connect-one.js
+`connect-one.js`
     Individual Mumble bot client.
 
-config.json
+`config.json`
     Stores the local access token and local runtime settings.
 
-audio\
+`audio\`
     Test audio.
 
-codecs\
+`codecs\`
     Opus codec adapter.
 
-runtime\node\
+`runtime\node\`
     Bundled Node.js runtime.
 
-runtime\ffmpeg\
+`runtime\ffmpeg\`
     Bundled FFmpeg runtime.
 
-node_modules\
+`node_modules\`
     Bundled Node dependencies.
 
-
-NETWORK ACCESS
+## NETWORK ACCESS
 
 The browser controller listens only on:
 
