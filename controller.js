@@ -950,7 +950,7 @@ async function refreshStatus() {
         if (Number.isSafeInteger(data.maxBots)) {
             botInput.max = String(data.maxBots)
             talkerInput.max = String(data.maxBots)
-            enforceBotTalkerBounds(true)
+            enforceBotTalkerBounds(false)
 
             const atLimit = Number(botInput.value) >= data.maxBots ||
                 Number(talkerInput.value) >= data.maxBots ||
