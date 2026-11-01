@@ -98,14 +98,6 @@ No external audio software is required.
 
 Each token belongs to a specific subscriber/server configuration on the VPS.
 
-The VPS determines the correct:
-- subscriber slug
-- Mumble hostname
-- Mumble port
-- test-bot authentication password
-
-from the token.
-
 If the administrator clears or revokes that token on the VPS, it will stop working.
 
 ## IMPORTANT FILES
