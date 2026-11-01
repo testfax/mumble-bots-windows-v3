@@ -12,10 +12,6 @@ Double-click Mumble-Bot-Controller.bat. It downloads portable Node.js 24.13.0 an
 
 The controller opens at http://127.0.0.1:8787. If installation fails, the BAT window remains open with the error.
 
-This package has not been tested on a Windows machine. The @discordjs/opus native module may require a compatible prebuilt binary or Windows build tools.
-
-Never commit config.json containing credentials or private tokens. Inspect it before publishing.
-
 ### Opus compatibility (updated 2026-11-01):
 
 Uses Node.js 22.14.0 (Windows x64, ABI 127) because @discordjs/opus 0.10.0
@@ -101,14 +97,6 @@ No external audio software is required.
 ## TOKEN SECURITY
 
 Each token belongs to a specific subscriber/server configuration on the VPS.
-
-The VPS determines the correct:
-- subscriber slug
-- Mumble hostname
-- Mumble port
-- test-bot authentication password
-
-from the token.
 
 If the administrator clears or revokes that token on the VPS, it will stop working.
 
