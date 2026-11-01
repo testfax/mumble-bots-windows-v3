@@ -565,12 +565,22 @@ Write-Host "Murmur: $($remoteConfig.host):$($remoteConfig.port)"
 Write-Host "Starting $Count bot(s); talkers: $Talkers"
 
 # Request all bot credentials in one atomic VPS transaction.
-$BatchNames = @(
-    for ($i = 1; $i -le $Count; $i++) {
-        "LoadBot-{0:D3}" -f ($state.Count + $i)
-    }
-)
+# Use valid eight-digit IDs to avoid recycling low-numbered names.
+$ExistingNames = @($state | ForEach-Object { [string]$_.name })
 
+do {
+    $BatchStart = Get-Random -Minimum 10000000 -Maximum (47483648 - $Count)
+
+    $BatchNames = @(
+        for ($i = 1; $i -le $Count; $i++) {
+            "LoadBot-{0:D8}" -f ($BatchStart + $i)
+        }
+    )
+
+    $Collision = @(
+        $BatchNames | Where-Object { $ExistingNames -contains $_ }
+    ).Count -gt 0
+} while ($Collision)
 $BatchBody = @{
     sessionId = $SessionId
     names = $BatchNames
@@ -595,8 +605,7 @@ if (
 }
 
 for ($i = 1; $i -le $Count; $i++) {
-    $nextNumber = $state.Count + 1
-    $name = "LoadBot-{0:D3}" -f $nextNumber
+    $name = [string]$BatchNames[$i - 1]
 
     $Credential = $BatchCredentials[$i - 1]
 

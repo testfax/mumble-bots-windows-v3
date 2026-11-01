@@ -11,3 +11,5 @@ logs/
 config.json
 .env
 .env.*
+.mumble-bots.pids.json
+.mumble-loadtest-session.json
