@@ -1,0 +1,13 @@
+node_modules/
+runtime/node/*
+runtime/node-v22/
+runtime/ffmpeg/*
+!runtime/node/.gitkeep
+!runtime/ffmpeg/.gitkeep
+.bootstrap-downloads/
+.dependencies-installed
+logs/
+*.log
+config.json
+.env
+.env.*

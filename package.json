@@ -1,0 +1,16 @@
+{
+  "name": "thelounge-mumble-bots",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@discordjs/opus": "^0.10.0",
+    "mumble-client": "1.3.0",
+    "mumble-client-tcp": "1.0.1"
+  },
+  "allowScripts": {
+    "node-opus@0.2.9": true,
+    "ref@1.3.5": true,
+    "@discordjs/opus@0.10.0": true
+  }
+}
