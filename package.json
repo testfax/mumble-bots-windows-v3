@@ -1,6 +1,6 @@
 {
   "name": "thelounge-mumble-bots",
-  "version": "1.0.0",
+  "version": "3.2",
   "private": true,
   "type": "commonjs",
   "dependencies": {
