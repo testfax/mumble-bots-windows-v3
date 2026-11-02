@@ -1,0 +1,62 @@
+
+name: Automatic GitHub Release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - package.json
+      - .github/workflows/release.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: automatic-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check version change
+        id: version
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          NEW=$(node -p "require('./package.json').version")
+          OLD=$(git show "$BEFORE:package.json" 2>/dev/null \
+            | node -e "let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{try{console.log(JSON.parse(s).version)}catch{console.log('')}})")
+
+          if [ "$NEW" = "$OLD" ]; then
+            echo "Version unchanged."
+            exit 0
+          fi
+
+          TAG="v$NEW"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null; then
+            echo "Tag $TAG already exists."
+            exit 0
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        if: steps.version.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          gh release create "$TAG" \
+            --target "$GITHUB_SHA" \
+            --title "$TAG" \
+            --generate-notes
